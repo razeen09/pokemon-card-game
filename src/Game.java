@@ -2,10 +2,10 @@ import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
+	static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		
-		Scanner scanner = new Scanner(System.in);
 		int option;
 		
 		System.out.print("Key in the name for player 1: ");
@@ -21,7 +21,7 @@ public class Game {
 		
 		System.out.println("");
 		
-		System.out.print("Option: "); // todo: change from println to print to place cursor on the right in the same line
+		System.out.print("Option: "); // TODO: change from println to print to place cursor on the right in the same line
 		option = scanner.nextInt();
 		 
 		// if (option = 1) -> display cards--method
@@ -29,11 +29,11 @@ public class Game {
 		if (option == 1) {
 			
 			// Draw cards for player 1
-			System.out.println("Player 1's cards:");	
+			System.out.println(player1 + "'s cards:");	
 			drawCardsOne();
 			
 			// Draw cards for player 2
-			System.out.println("Player 2's cards:");	
+			System.out.println(player2 + "'s cards:");	
 			drawCardsTwo(); 
 			
 			System.out.println("Player 1:");
@@ -124,7 +124,18 @@ public class Game {
 	
 	// Attack method
 	public static void attack() {
-		System.out.println("ATTTAACKK!!");
+		System.out.print("Choose your Card: ");
+		int attackingCard = scanner.nextInt();
+		
+		System.out.print("Choose opponent's Card: ");
+		int defendingCard = scanner.nextInt();
+		
+		//Check if weakness on/off
+			// Get attackingCard corresponding-> Card object's type 
+			// Get defendingCard corresponding-> Card object's type
+			// Compare two types
+				// if types are equal: Weakness is ON
+				// if types are notequal: Weakness is OFF
 	}
 	
 	// Recharge method
@@ -137,7 +148,7 @@ public class Game {
 		System.out.println("training...!!");
 	}
 	
-	
+	//Remove this later
 	
 
 }
