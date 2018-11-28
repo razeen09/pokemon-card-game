@@ -1,17 +1,21 @@
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
 	static Scanner scanner = new Scanner(System.in);
+	
+	static Player player1;
+	static Player player2;
 
 	public static void main(String[] args) {
 		
 		int option;
 		
 		System.out.print("Key in the name for player 1: ");
-		String player1 = scanner.nextLine();
+		player1 = new Player(scanner.nextLine());
+		
 		System.out.print("Key in the name for player 2: ");
-		String player2 = scanner.nextLine();
+		player2 = new Player(scanner.nextLine());
+
 		
 		//System.out.println("Player 1 is: " + player1 + " and player 2 is: " + player2);
 		
@@ -28,13 +32,17 @@ public class Game {
 		// else -> display top 10--method
 		if (option == 1) {
 			
+			System.out.println("Drawing the card for Player 1....");
+			System.out.println("Drawing the card for Player 2....");
+			System.out.println();
+			
 			// Draw cards for player 1
-			System.out.println(player1 + "'s cards:");	
-			drawCardsOne();
+			System.out.println(player1.getName() + "'s cards:");	
+			player1.drawCards();
 			
 			// Draw cards for player 2
-			System.out.println(player2 + "'s cards:");	
-			drawCardsTwo(); 
+			System.out.println(player2.getName() + "'s cards:");	
+			player2.drawCards(); 
 			
 			System.out.println("Player 1:");
 			System.out.println("	Option 1: Attack");
@@ -59,76 +67,16 @@ public class Game {
 		
 	}
 	
-	// Draw card method for player 1                                                                                                                  
-	public static void drawCardsOne() {
-
-		Card card1 = new Card("Attacking");
-		Card card2 = new Card("Attacking");
-		Card card3 = new Card("Defending");
-		Card card4 = new Card();
-		Card card5 = new Card();
-		Card card6 = new Card();
-		
-		
-		System.out.println("");
-		
-		System.out.println(" +-----+-----------+-------+----+----+--------+---------------+---------------+--------------------+-----------+");
-		System.out.println(" | No. | Type      | Stage | XP | HP | Energy | Energy colour | Attack points | Resisitance Points | Status    |");
-		System.out.println(" |-----+-----------+-------+----+----+--------+---------------+---------------+--------------------+-----------|");
-		System.out.printf(" | 1   | %s | %d     | %d  | %d | %d     | %s        | %d             | %d                  | %s  |\n", card1.getType(), card1.getStage(), card1.getXP(), card1.getHP(), card1.getEnergy(), card1.getEnergyCol(), card1.getAP(), card1.getRP(), card1.status());
-		System.out.println(" |-----+-----------+-------+----+----+--------+---------------+---------------+--------------------+-----------|");
-		System.out.printf(" | 2   | %s | %d     | %d  | %d | %d     | %s        | %d             | %d                  | %s  |\n", card2.getType(), card2.getStage(), card2.getXP(), card2.getHP(), card2.getEnergy(), card2.getEnergyCol(), card2.getAP(), card2.getRP(), card2.status());
-		System.out.println(" |-----+-----------+-------+----+----+--------+---------------+---------------+--------------------+-----------|");
-		System.out.printf(" | 3   | %s | %d     | %d  | %d | %d     | %s        | %d             | %d                  | %s  |\n", card3.getType(), card3.getStage(), card3.getXP(), card3.getHP(), card3.getEnergy(), card3.getEnergyCol(), card3.getAP(), card3.getRP(), card3.status());
-		System.out.println(" |-----+-----------+-------+----+----+--------+---------------+---------------+--------------------+-----------|");
-		System.out.printf(" | 4   | %s | %d     | %d  | %d | %d     | %s        | %d             | %d                  | %s  |\n", card4.getType(), card4.getStage(), card4.getXP(), card4.getHP(), card4.getEnergy(), card4.getEnergyCol(), card4.getAP(), card4.getRP(), card4.status());
-		System.out.println(" |-----+-----------+-------+----+----+--------+---------------+---------------+--------------------+-----------|");
-		System.out.printf(" | 5   | %s | %d     | %d  | %d | %d     | %s        | %d             | %d                  | %s  |\n", card5.getType(), card5.getStage(), card5.getXP(), card5.getHP(), card5.getEnergy(), card5.getEnergyCol(), card5.getAP(), card5.getRP(), card5.status());
-		System.out.println(" |-----+-----------+-------+----+----+--------+---------------+---------------+--------------------+-----------|");
-		System.out.printf(" | 6   | %s | %d     | %d  | %d | %d     | %s        | %d             | %d                  | %s  |\n", card6.getType(), card6.getStage(), card6.getXP(), card6.getHP(), card6.getEnergy(), card6.getEnergyCol(), card6.getAP(), card6.getRP(), card6.status());
-		System.out.println(" |-----+-----------+-------+----+----+--------+---------------+---------------+--------------------+-----------|");
-		
-		System.out.println("");
-	}
-	
-	// Draw card method for player 2
-	public static void drawCardsTwo() {
-
-		Card card1 = new Card("Attacking");
-		Card card2 = new Card();
-		Card card3 = new Card();
-		Card card4 = new Card("Attacking");
-		Card card5 = new Card();
-		Card card6 = new Card("Defending");
-		
-		System.out.println("");
-		
-		System.out.println(" +-----+-----------+-------+----+----+--------+---------------+---------------+--------------------+-----------+");
-		System.out.println(" | No. | Type      | Stage | XP | HP | Energy | Energy colour | Attack points | Resisitance Points | Status    |");
-		System.out.println(" |-----+-----------+-------+----+----+--------+---------------+---------------+--------------------+-----------|");
-		System.out.printf(" | 1   | %s | %d     | %d  | %d | %d     | %s        | %d             | %d                  | %s  |\n", card1.getType(), card1.getStage(), card1.getXP(), card1.getHP(), card1.getEnergy(), card1.getEnergyCol(), card1.getAP(), card1.getRP(), card1.status());
-		System.out.println(" |-----+-----------+-------+----+----+--------+---------------+---------------+--------------------+-----------|");
-		System.out.printf(" | 2   | %s | %d     | %d  | %d | %d     | %s        | %d             | %d                  | %s  |\n", card2.getType(), card2.getStage(), card2.getXP(), card2.getHP(), card2.getEnergy(), card2.getEnergyCol(), card2.getAP(), card2.getRP(), card2.status());
-		System.out.println(" |-----+-----------+-------+----+----+--------+---------------+---------------+--------------------+-----------|");
-		System.out.printf(" | 3   | %s | %d     | %d  | %d | %d     | %s        | %d             | %d                  | %s  |\n", card3.getType(), card3.getStage(), card3.getXP(), card3.getHP(), card3.getEnergy(), card3.getEnergyCol(), card3.getAP(), card3.getRP(), card3.status());
-		System.out.println(" |-----+-----------+-------+----+----+--------+---------------+---------------+--------------------+-----------|");
-		System.out.printf(" | 4   | %s | %d     | %d  | %d | %d     | %s        | %d             | %d                  | %s  |\n", card4.getType(), card4.getStage(), card4.getXP(), card4.getHP(), card4.getEnergy(), card4.getEnergyCol(), card4.getAP(), card4.getRP(), card4.status());
-		System.out.println(" |-----+-----------+-------+----+----+--------+---------------+---------------+--------------------+-----------|");
-		System.out.printf(" | 5   | %s | %d     | %d  | %d | %d     | %s        | %d             | %d                  | %s  |\n", card5.getType(), card5.getStage(), card5.getXP(), card5.getHP(), card5.getEnergy(), card5.getEnergyCol(), card5.getAP(), card5.getRP(), card5.status());
-		System.out.println(" |-----+-----------+-------+----+----+--------+---------------+---------------+--------------------+-----------|");
-		System.out.printf(" | 6   | %s | %d     | %d  | %d | %d     | %s        | %d             | %d                  | %s  |\n", card6.getType(), card6.getStage(), card6.getXP(), card6.getHP(), card6.getEnergy(), card6.getEnergyCol(), card6.getAP(), card6.getRP(), card6.status());
-		System.out.println(" |-----+-----------+-------+----+----+--------+---------------+---------------+--------------------+-----------|");
-		
-		System.out.println("");
-	}
-	
 	// Attack method
 	public static void attack() {
 		System.out.print("Choose your Card: ");
-		int attackingCard = scanner.nextInt();
+		int attackingCard = scanner.nextInt() - 1;
 		
 		System.out.print("Choose opponent's Card: ");
-		int defendingCard = scanner.nextInt();
+		int defendingCard = scanner.nextInt() - 1;
+		
+		player1.cardsList.get(attackingCard).attack(player2.cardsList.get(defendingCard)); // calls attack method of arraylist objects (Card and Subclasses) from cardsList
+		//player play count ++
 		
 		//Check if weakness on/off
 			// Get attackingCard corresponding-> Card object's type 

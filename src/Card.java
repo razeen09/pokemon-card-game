@@ -1,42 +1,35 @@
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Card {
-	private String type;
+	private String type;//remove
+	private int cardNum;
 	private int stage = 0;		
-	private int xp = 0;
+	protected int xp = 0;
 	private int hp;
-	private int energy;
+	protected int energy;
 	private String energyCol;
 	private int ap;
 	private int rp;
 	private String status;
 	
 	// Constructor if type parameter/argument is passed from Game class
-	public Card(String type) {
-		this.type = type;
-		setHP();
+	public Card(int cNum) {
+		cardNum = cNum;
+		hp = ThreadLocalRandom.current().nextInt(50, 80 + 1);
 		setEnergy();
 		setEnergyCol();
-		setAP();
-		setRP();
-		setStatus();
+		setAP(1);
+		setRP(0);
+		status = "Active";
 	}
 	
 	
-	// Constructor if type parameter is not passed
-	public Card() {
-		setRandomType();
-		setHP();
-		setEnergy();
-		setEnergyCol();
-		setAP();
-		setRP();
-		setStatus();
-	}
+
 	
 	// Setters
 	
 	// Sets Random Card Type
+	/*
 	public void setRandomType() {
 		int random = ThreadLocalRandom.current().nextInt(1, 3 + 1);
 		if (random == 1) {
@@ -49,7 +42,7 @@ public class Card {
 			type = "Fairy";
 		}
 	}
-	
+	*/
 	// Set Random Energy Colour
 	public void setEnergyCol() {
 		
@@ -69,30 +62,19 @@ public class Card {
 	}
 	
 	// Set Attack Points
-	public void setAP() {
-		if (type.equals("Attacking")) {
-			ap = ThreadLocalRandom.current().nextInt(2, 5 + 1);
-		}
-		
-		else {
-			ap = 0;
-		}
+	public void setAP(int ap) {
+		this.ap = ap;
 	}
 	
 	// Set Resistance Points
-	public void setRP() {
-		if (type.equals("Defending")) {
-			rp = ThreadLocalRandom.current().nextInt(1, 3 + 1);
-		}
-		
-		else {
-			rp = 0;
-		}
+	public void setRP(int rp) {
+		this.rp = rp;
 	}
 	
 	// Set Hit Points
-	public void setHP() {
-		hp = ThreadLocalRandom.current().nextInt(50, 80 + 1);
+	public void setHP(int hp) {
+		
+		this.hp = hp;
 	}
 	
 	// Set Energy
@@ -101,8 +83,8 @@ public class Card {
 	}
 	
 	// Set Status
-	public void setStatus() {
-		status = "Active";
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	// Getters
@@ -138,8 +120,56 @@ public class Card {
 		return rp;
 	}
 	
-	public String status() {
+	public String getAPString() {
+		return "-";
+	}
+	
+	public String getRPString() {
+		return "-";
+	}
+	
+	public String getStatus() {
 		return status;
+	}
+
+
+	public int getCardNum() {
+		return cardNum;
+	}
+	
+	public void attack(Card targetCard) {
+		System.out.println("T: " + targetCard.getClass().getSimpleName());
+		System.out.println("T: " + this.getClass().getSimpleName());
+		
+		xp += 1;
+		energy -= 1;
+		if ( targetCard.getClass().getSimpleName() == this.getClass().getSimpleName() ) {
+			System.out.println("Weakness: ON, attack points doubled");
+			//
+			if (targetCard.getClass().getSimpleName() == "Defending") {
+				targetCard.setHP( targetCard.getHP() - (2 - targetCard.getRP()));
+			}
+			else {
+				targetCard.setHP( targetCard.getHP() - 2 );
+			}	
+			//
+		}
+		else {
+			System.out.println("Weakness: OFF");
+			
+			if (targetCard.getClass().getSimpleName() == "Defending") {
+				targetCard.setHP( targetCard.getHP() - (1 - targetCard.getRP()));
+			}
+			else {
+				targetCard.setHP( targetCard.getHP() - 1 );		
+			}	
+		}
+		
+		System.out.println(getXP());
+		System.out.println(targetCard.getHP());
+		System.out.println(getEnergy());
+		System.out.println(getStatus());
+		System.out.println("Executes Superclass Method");
 	}
 	
 
